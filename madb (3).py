@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 
-# ================= Contact Dialog =================
+
 class ContactDialog(QDialog):
     def __init__(self, contact, parent=None):
         super().__init__(parent)
@@ -22,13 +22,13 @@ class ContactDialog(QDialog):
         main_layout.setContentsMargins(20, 20, 20, 20)
         main_layout.setSpacing(10)
 
-        # Top Half: Circle + Logos
+      
         top_frame = QFrame()
         top_frame.setStyleSheet("background-color: #E6E6FA; border-radius: 15px;")
         top_layout = QVBoxLayout()
         top_layout.setAlignment(Qt.AlignCenter)
 
-        # Circle avatar
+        
         circle_widget = QWidget()
         circle_layout = QVBoxLayout()
         circle_layout.setAlignment(Qt.AlignCenter)
@@ -48,7 +48,7 @@ class ContactDialog(QDialog):
         top_layout.addWidget(circle_widget)
         top_layout.addSpacing(15)
 
-        # Logos
+       
         logos_layout = QHBoxLayout()
         logos_layout.setSpacing(25)
         logos_layout.setAlignment(Qt.AlignCenter)
@@ -59,32 +59,32 @@ class ContactDialog(QDialog):
         top_layout.addLayout(logos_layout)
         top_frame.setLayout(top_layout)
 
-        # Bottom Half: Contact Details
+        
         bottom_frame = QFrame()
         bottom_frame.setStyleSheet("background-color: #F0FFF0; border-radius: 15px;")
         bottom_layout = QVBoxLayout()
         bottom_layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
         bottom_layout.setSpacing(10)
 
-        # Name
+       
         name_label = QLabel(self.contact['name'])
         name_label.setFont(QFont("Segoe UI", 22, QFont.Bold))
         name_label.setAlignment(Qt.AlignCenter)
         bottom_layout.addWidget(name_label)
 
-        # Phone
+       
         phone_label = QLabel(f"📞 {self.contact['phone']}")
         phone_label.setFont(QFont("Segoe UI", 16))
         phone_label.setAlignment(Qt.AlignCenter)
         bottom_layout.addWidget(phone_label)
 
-        # Email
+       
         email_label = QLabel(f"✉️ {self.contact['email']}")
         email_label.setFont(QFont("Segoe UI", 16))
         email_label.setAlignment(Qt.AlignCenter)
         bottom_layout.addWidget(email_label)
 
-        # Address
+       
         address_label = QLabel(f"🏠 {self.contact['address']}")
         address_label.setFont(QFont("Segoe UI", 16))
         address_label.setAlignment(Qt.AlignCenter)
@@ -98,7 +98,7 @@ class ContactDialog(QDialog):
         self.setLayout(main_layout)
 
 
-# ================= Contact List Dialog =================
+
 class ContactListDialog(QDialog):
     def __init__(self, contacts, parent=None):
         super().__init__(parent)
@@ -113,7 +113,7 @@ class ContactListDialog(QDialog):
         layout.setSpacing(10)
         layout.setContentsMargins(10, 10, 10, 10)
 
-        # Search bar at top
+       
         search_layout = QHBoxLayout()
         search_label = QLabel("🔍")
         search_label.setFont(QFont("Segoe UI Emoji", 16))
@@ -140,7 +140,6 @@ class ContactListDialog(QDialog):
         
         layout.addLayout(search_layout)
 
-        # Contact list
         self.list_widget = QListWidget()
         self.list_widget.itemClicked.connect(self.show_contact_dialog)
 
@@ -166,7 +165,7 @@ class ContactListDialog(QDialog):
         self.refresh_list()
         layout.addWidget(self.list_widget)
 
-        # Edit button (purple)
+       
         self.edit_btn = QPushButton("✏️ Edit Contact")
         self.edit_btn.setStyleSheet("""
             QPushButton {
@@ -183,7 +182,7 @@ class ContactListDialog(QDialog):
         self.edit_btn.clicked.connect(self.edit_selected_contact)
         layout.addWidget(self.edit_btn)
 
-        # Delete button (red)
+       
         self.delete_btn = QPushButton("🗑 Delete Contact")
         self.delete_btn.setStyleSheet("""
             QPushButton {
@@ -227,11 +226,11 @@ class ContactListDialog(QDialog):
             QMessageBox.warning(self, "No Selection", "Please select a contact to edit.")
             return
         
-        # Get the actual contact from filtered list
+       
         selected_item = self.list_widget.item(index)
         selected_text = selected_item.text().split('\n')[0]  # Get name from item
         
-        # Find the contact in the full list
+       
         contact = None
         actual_index = None
         for idx, c in enumerate(self.parent.contacts):
@@ -250,11 +249,11 @@ class ContactListDialog(QDialog):
             QMessageBox.warning(self, "No Selection", "Please select a contact to delete.")
             return
 
-        # Get the actual contact from filtered list
+       
         selected_item = self.list_widget.item(index)
         selected_text = selected_item.text().split('\n')[0]  # Get name from item
         
-        # Find the contact in the full list
+       
         contact = None
         for c in self.contacts:
             if c['name'] == selected_text:
@@ -281,10 +280,10 @@ class ContactListDialog(QDialog):
                 QMessageBox.critical(self, "Database Error", f"Failed to delete contact: {str(e)}")
 
     def show_contact_dialog(self, item):
-        # Get the name from the item
+       
         selected_text = item.text().split('\n')[0]
         
-        # Find the contact in the full list
+       
         contact = None
         for c in self.contacts:
             if c['name'] == selected_text:
@@ -296,7 +295,7 @@ class ContactListDialog(QDialog):
             dialog.exec_()
 
 
-# ================= Main Window =================
+
 class SimpleAddressBook(QWidget):
     def __init__(self):
         super().__init__()
@@ -383,7 +382,7 @@ class SimpleAddressBook(QWidget):
         main_layout = QVBoxLayout()
         main_layout.setAlignment(Qt.AlignCenter)
 
-        # Form container
+        
         form_container = QFrame()
         form_container.setFixedWidth(int(self.width() * 0.75))
         form_container.setStyleSheet("background-color: #F0FFF0; border-radius: 15px;")
@@ -391,7 +390,7 @@ class SimpleAddressBook(QWidget):
         form_layout.setContentsMargins(30, 30, 30, 30)
         form_layout.setSpacing(15)
 
-        # Header with 3-dots button
+       
         header_layout = QHBoxLayout()
         header_label = QLabel("Simple Address Book System")
         header_label.setFont(QFont("Segoe UI", 22, QFont.Bold))
@@ -417,7 +416,7 @@ class SimpleAddressBook(QWidget):
 
         form_layout.addLayout(header_layout)
 
-        # Input field styling
+      
         input_style = """
             QLineEdit {
                 background-color: rgba(230, 230, 250, 0.3);
@@ -444,7 +443,7 @@ class SimpleAddressBook(QWidget):
             }
         """
 
-        # Form inputs
+       
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Full Name")
         self.name_input.setMinimumHeight(50)
@@ -541,7 +540,7 @@ class SimpleAddressBook(QWidget):
         event.accept()
 
 
-# ================= Run App =================
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = SimpleAddressBook()
